@@ -1,0 +1,36 @@
+
+<div class="home-body">
+	<button ng-click="logoutUser()">Logout</button>
+	<div class="main-container">
+		<div class="main-title">STIR THE POT</div>
+		<div class="sub-title">Trash Talk At Its Finest</div>
+
+		<form class="form-inline" ng-submit="postData()">
+			
+		    <input class="form-control text-box" type="text" ng-model="message" placeholder="What's on your mind?">
+		    <input type="submit" placeholder="submit" ng-click="postMessages()">
+
+		</form>
+
+		<div class="messages-container">
+		    <div ng-repeat="post in posts | orderBy: 'timestamp': true" ng-init="limit = commentLimit">
+		    	<p class="post-text">{{post.title | limitTo: 50}}{{post.title.length > 50 ? '...' : ''}}
+		    	</p>
+			    <p>{{ post.timestamp | date:"MMM/dd/yyyy 'at' h:mma"}}</p>
+			    <button ng-click="showCommentContainer(post, $index)">Comment</button>
+			    <div ng-show="showStuff[$index]">
+				    <input class="form-control text-box" type="text" ng-model="data.myComment" placeholder="Add Comment">
+				    <button ng-click="postComment(data.myComment)">Post</button>
+				    <button ng-click="cancelComment($index)">Cancel</button>
+				</div>
+				<div ng-repeat="comment in post.comments | limitTo: limit">
+				    <p class="comment-text">{{comment.title}}</p>
+				</div>
+			    
+			    <hr>
+		    </div>
+		</div>
+
+	</div>
+</div>
+
